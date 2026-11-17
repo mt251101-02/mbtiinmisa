@@ -1,0 +1,235 @@
+/* 16Personalities 스타일 시그니처 CSS */
+
+:root {
+  --color-agree: #33a474;
+  --color-agree-light: #e8f6f0;
+  --color-disagree: #88619a;
+  --color-disagree-light: #f3edf6;
+  --color-neutral: #a0aec0;
+  --color-neutral-light: #edf2f7;
+  
+  --role-analyst: #88619a;
+  --role-diplomat: #33a474;
+  --role-sentinel: #4298b4;
+  --role-explorer: #e4ae3a;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Pretendard", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background-color: #f6f8fb;
+  color: #2d3748;
+  line-height: 1.6;
+}
+
+/* 7단계 리커트 척도 원형 버튼 컨테이너 */
+.likert-scale {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 600px;
+  margin: 1.25rem auto 0;
+  padding: 0.5rem 0.25rem;
+}
+
+.likert-label {
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  user-select: none;
+}
+
+.likert-label.agree {
+  color: var(--color-agree);
+}
+
+.likert-label.disagree {
+  color: var(--color-disagree);
+}
+
+.likert-options {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex: 1;
+  margin: 0 1rem;
+}
+
+/* 개별 7단계 원형 라디오 버튼 */
+.likert-option {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  background-color: #ffffff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+/* 원 크기 (가운데가 가장 작고 양 끝이 가장 큼) */
+.likert-option.size-xl {
+  width: 44px;
+  height: 44px;
+}
+.likert-option.size-lg {
+  width: 36px;
+  height: 36px;
+}
+.likert-option.size-md {
+  width: 30px;
+  height: 30px;
+}
+.likert-option.size-sm {
+  width: 24px;
+  height: 24px;
+}
+
+/* 비동의(보라색) 옵션들 */
+.likert-option.disagree-opt {
+  border: 2px solid var(--color-disagree);
+}
+.likert-option.disagree-opt:hover {
+  background-color: var(--color-disagree-light);
+  transform: scale(1.12);
+}
+.likert-option.disagree-opt.selected {
+  background-color: var(--color-disagree);
+  box-shadow: 0 0 0 4px rgba(136, 97, 154, 0.25);
+  transform: scale(1.08);
+}
+.likert-option.disagree-opt.selected::after {
+  content: "";
+  width: 10px;
+  height: 10px;
+  background-color: #ffffff;
+  border-radius: 50%;
+}
+
+/* 중립(회색) 옵션 */
+.likert-option.neutral-opt {
+  border: 2px solid var(--color-neutral);
+}
+.likert-option.neutral-opt:hover {
+  background-color: var(--color-neutral-light);
+  transform: scale(1.15);
+}
+.likert-option.neutral-opt.selected {
+  background-color: var(--color-neutral);
+  box-shadow: 0 0 0 4px rgba(160, 174, 192, 0.3);
+  transform: scale(1.1);
+}
+.likert-option.neutral-opt.selected::after {
+  content: "";
+  width: 6px;
+  height: 6px;
+  background-color: #ffffff;
+  border-radius: 50%;
+}
+
+/* 동의(초록색) 옵션들 */
+.likert-option.agree-opt {
+  border: 2px solid var(--color-agree);
+}
+.likert-option.agree-opt:hover {
+  background-color: var(--color-agree-light);
+  transform: scale(1.12);
+}
+.likert-option.agree-opt.selected {
+  background-color: var(--color-agree);
+  box-shadow: 0 0 0 4px rgba(51, 164, 116, 0.25);
+  transform: scale(1.08);
+}
+.likert-option.agree-opt.selected::after {
+  content: "";
+  width: 10px;
+  height: 10px;
+  background-color: #ffffff;
+  border-radius: 50%;
+}
+
+/* 반응형 모바일 조정 */
+@media (max-width: 640px) {
+  .likert-scale {
+    margin: 1rem auto 0;
+  }
+  .likert-options {
+    margin: 0 0.5rem;
+  }
+  .likert-option.size-xl {
+    width: 36px;
+    height: 36px;
+  }
+  .likert-option.size-lg {
+    width: 30px;
+    height: 30px;
+  }
+  .likert-option.size-md {
+    width: 25px;
+    height: 25px;
+  }
+  .likert-option.size-sm {
+    width: 20px;
+    height: 20px;
+  }
+  .likert-label {
+    font-size: 0.75rem;
+  }
+}
+
+/* 성향 게이지 바 */
+.trait-gauge-container {
+  background-color: #edf2f7;
+  border-radius: 9999px;
+  height: 16px;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+}
+
+.trait-gauge-fill {
+  height: 100%;
+  transition: width 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* 로딩 스피너 애니메이션 */
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 3s linear infinite;
+}
+
+/* 부드러운 페이드 인 */
+.fade-in {
+  animation: fadeIn 0.4s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 카드 호버 이펙트 */
+.card-hover {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.card-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+}

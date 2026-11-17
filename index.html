@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>16 Personalities 정밀 성격 유형 검사</title>
+  <meta name="description" content="16Personalities 표준 5대 척도 기반 나만의 정밀 성격 유형 검사기입니다.">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Pretendard WebFont -->
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+  <!-- Custom Style -->
+  <link rel="stylesheet" href="css/style.css">
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Pretendard', '-apple-system', 'BlinkMacSystemFont', 'system-ui', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              agree: '#33a474',
+              disagree: '#88619a',
+              neutral: '#a0aec0',
+            }
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="min-h-screen bg-slate-50 flex flex-col text-slate-800 antialiased selection:bg-emerald-100 selection:text-emerald-900">
+
+  <!-- 글로벌 내비게이션 바 -->
+  <header class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-200">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-2.5">
+        <span class="w-8 h-8 rounded-xl bg-gradient-to-tr from-emerald-500 to-purple-600 flex items-center justify-center text-white font-black text-sm shadow-sm">
+          16
+        </span>
+        <span class="font-extrabold text-lg tracking-tight bg-gradient-to-r from-slate-900 to-slate-700 bg-clip-text text-transparent">
+          Personalities
+        </span>
+      </div>
+      <div class="flex items-center gap-2">
+        <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-100">
+          표준 48문항
+        </span>
+      </div>
+    </div>
+  </header>
+
+  <!-- 메인 컨텐츠 영역 -->
+  <main class="flex-1 max-w-4xl w-full mx-auto px-4 sm:px-6 py-8 sm:py-12">
+
+    <!-- ==================== 1. 인트로 뷰 (View Intro) ==================== -->
+    <section id="view-intro" class="fade-in max-w-2xl mx-auto text-center py-6 sm:py-10">
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 text-emerald-800 text-xs sm:text-sm font-semibold mb-6 border border-emerald-100">
+        <span>✨ 16Personalities 표준 5대 척도 모델</span>
+      </div>
+
+      <h1 class="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight leading-tight mb-4">
+        나를 발견하는 가장<br>
+        <span class="bg-gradient-to-r from-emerald-600 to-purple-600 bg-clip-text text-transparent">정확하고 특별한 여정</span>
+      </h1>
+
+      <p class="text-base sm:text-lg text-slate-600 mb-8 max-w-xl mx-auto leading-relaxed">
+        에너지, 인식, 판단, 생활양식, 그리고 자아 정서성까지.<br class="hidden sm:inline">
+        나의 본질과 숨겨진 잠재력을 발견해 보세요.
+      </p>
+
+      <!-- 테스트 안내 요약 카드 -->
+      <div class="grid grid-cols-3 gap-3 sm:gap-4 mb-10 max-w-lg mx-auto">
+        <div class="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-sm text-center">
+          <div class="text-2xl mb-1">⏱️</div>
+          <div class="text-xs text-slate-400 font-medium">소요 시간</div>
+          <div class="text-sm font-bold text-slate-800">약 6분</div>
+        </div>
+        <div class="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-sm text-center">
+          <div class="text-2xl mb-1">📝</div>
+          <div class="text-xs text-slate-400 font-medium">검사 문항</div>
+          <div class="text-sm font-bold text-slate-800">총 48문항</div>
+        </div>
+        <div class="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-sm text-center">
+          <div class="text-2xl mb-1">🎯</div>
+          <div class="text-xs text-slate-400 font-medium">측정 지표</div>
+          <div class="text-sm font-bold text-slate-800">5대 척도</div>
+        </div>
+      </div>
+
+      <!-- 시작 버튼 -->
+      <button id="btn-start" type="button" class="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-2xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-lg shadow-lg shadow-slate-900/10 hover:shadow-xl hover:scale-[1.02] active:scale-[0.98] transition-all w-full sm:w-auto">
+        <span>무료 검사 시작하기</span>
+        <span class="text-xl">➔</span>
+      </button>
+
+      <!-- 검사 팁 -->
+      <div class="mt-8 text-xs sm:text-sm text-slate-400 flex items-center justify-center gap-2">
+        <span>💡</span>
+        <span>가능한 '중립'을 피하고, 솔직하게 떠오르는 생각을 선택해 주세요.</span>
+      </div>
+
+      <!-- 4대 성격 그룹 미리보기 -->
+      <div class="mt-16 pt-12 border-t border-slate-200 text-left">
+        <h2 class="text-sm font-bold text-slate-400 uppercase tracking-wider text-center mb-6">4대 성격 유형 그룹</h2>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          <div class="bg-white p-4 rounded-2xl border border-purple-100 shadow-sm">
+            <span class="w-3 h-3 rounded-full bg-purple-500 inline-block mb-2"></span>
+            <h3 class="font-bold text-sm text-slate-900">분석형</h3>
+            <p class="text-xs text-slate-500 mt-1">INTJ, INTP, ENTJ, ENTP</p>
+          </div>
+          <div class="bg-white p-4 rounded-2xl border border-emerald-100 shadow-sm">
+            <span class="w-3 h-3 rounded-full bg-emerald-500 inline-block mb-2"></span>
+            <h3 class="font-bold text-sm text-slate-900">외교형</h3>
+            <p class="text-xs text-slate-500 mt-1">INFJ, INFP, ENFJ, ENFP</p>
+          </div>
+          <div class="bg-white p-4 rounded-2xl border border-sky-100 shadow-sm">
+            <span class="w-3 h-3 rounded-full bg-sky-500 inline-block mb-2"></span>
+            <h3 class="font-bold text-sm text-slate-900">관리자형</h3>
+            <p class="text-xs text-slate-500 mt-1">ISTJ, ISFJ, ESTJ, ESFJ</p>
+          </div>
+          <div class="bg-white p-4 rounded-2xl border border-amber-100 shadow-sm">
+            <span class="w-3 h-3 rounded-full bg-amber-500 inline-block mb-2"></span>
+            <h3 class="font-bold text-sm text-slate-900">탐험가형</h3>
+            <p class="text-xs text-slate-500 mt-1">ISTP, ISFP, ESTP, ESFP</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 2. 검사 진행 뷰 (View Test) ==================== -->
+    <section id="view-test" class="hidden fade-in max-w-2xl mx-auto">
+      <!-- 상단 진행률 프로그레스 헤더 -->
+      <div class="sticky top-16 z-40 bg-slate-50/95 backdrop-blur-sm py-3 mb-6">
+        <div class="flex items-center justify-between text-xs sm:text-sm font-semibold text-slate-600 mb-2">
+          <span id="step-indicator" class="text-slate-800 font-bold">단계 1 / 8</span>
+          <span id="progress-text" class="text-emerald-600 font-bold">0%</span>
+        </div>
+        <div class="w-full bg-slate-200 rounded-full h-2 overflow-hidden">
+          <div id="progress-bar" class="bg-gradient-to-r from-emerald-500 to-purple-600 h-2 rounded-full transition-all duration-300 w-0"></div>
+        </div>
+      </div>
+
+      <!-- 질문 카드 목록 컨테이너 -->
+      <div id="questions-container" class="space-y-6">
+        <!-- JavaScript로 동적 렌더링 -->
+      </div>
+
+      <!-- 하단 버튼 내비게이션 -->
+      <div class="flex items-center justify-between gap-4 mt-8 pt-4">
+        <button id="btn-prev" type="button" class="px-5 py-3 rounded-xl border border-slate-300 bg-white hover:bg-slate-100 text-slate-700 font-bold text-sm transition-all flex items-center gap-1.5 shadow-sm">
+          <span>←</span>
+          <span>이전</span>
+        </button>
+        <button id="btn-next" type="button" class="flex-1 sm:flex-none sm:min-w-[180px] px-6 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm transition-all flex items-center justify-center gap-2 shadow-md hover:shadow-lg">
+          <span>다음 단계</span>
+          <span>➔</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- ==================== 3. 로딩 연출 뷰 (View Loading) ==================== -->
+    <section id="view-loading" class="hidden fade-in max-w-md mx-auto text-center py-24">
+      <div class="relative w-20 h-20 mx-auto mb-8">
+        <div class="absolute inset-0 rounded-full border-4 border-slate-200"></div>
+        <div class="absolute inset-0 rounded-full border-4 border-transparent border-t-emerald-500 border-r-purple-600 animate-spin"></div>
+        <div class="absolute inset-2 rounded-full bg-white flex items-center justify-center text-2xl">
+          🔮
+        </div>
+      </div>
+      <h2 class="text-2xl font-black text-slate-900 mb-2">성향 정밀 분석 중...</h2>
+      <p class="text-sm text-slate-500">당신의 소중한 응답을 5대 척도 알고리즘으로 분석하고 있습니다.</p>
+    </section>
+
+    <!-- ==================== 4. 결과 뷰 (View Result) ==================== -->
+    <section id="view-result" class="hidden fade-in max-w-2xl mx-auto space-y-8">
+      
+      <!-- 결과 요약 헤더 카드 -->
+      <div class="bg-white rounded-3xl p-6 sm:p-10 border border-slate-200/80 shadow-md text-center relative overflow-hidden">
+        <div class="absolute top-0 left-0 right-0 h-2.5 bg-gradient-to-r from-emerald-500 via-sky-500 to-purple-600"></div>
+        
+        <div class="inline-block mb-3">
+          <span id="res-role-badge" class="px-3.5 py-1 rounded-full text-xs font-bold uppercase tracking-wider">
+            분석형 (Analysts)
+          </span>
+        </div>
+
+        <div id="res-icon" class="text-5xl sm:text-6xl my-2">♟️</div>
+        
+        <h2 id="res-full-code" class="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight my-1">
+          INTJ-A
+        </h2>
+        
+        <div class="flex items-center justify-center gap-2 text-lg sm:text-xl font-bold text-slate-700 mb-4">
+          <span id="res-name">용의주도한 전략가</span>
+          <span class="text-slate-300 font-light">•</span>
+          <span id="res-english-name" class="text-slate-400 font-semibold text-base">Architect</span>
+        </div>
+
+        <p id="res-summary" class="text-sm sm:text-base text-slate-600 italic font-medium max-w-lg mx-auto bg-slate-50 p-4 rounded-2xl border border-slate-100">
+          "상상력이 풍부하면서도 결단력이 있으며, 야망이 있지만 대외적으로 드러내지 않는 완벽한 전략가입니다."
+        </p>
+
+        <!-- 태그 목록 -->
+        <div id="res-tags" class="flex flex-wrap items-center justify-center gap-2 mt-5">
+          <!-- JS 렌더링 -->
+        </div>
+      </div>
+
+      <!-- 5대 성향 게이지 바 (시각화) -->
+      <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200/80 shadow-sm">
+        <div class="flex items-center justify-between mb-6 pb-3 border-b border-slate-100">
+          <div>
+            <h3 class="text-lg font-bold text-slate-900">5대 성격 지표 분석</h3>
+            <p class="text-xs text-slate-400">당신의 응답 비율을 기반으로 산출된 척도별 성향입니다.</p>
+          </div>
+          <span class="text-2xl">📊</span>
+        </div>
+
+        <div id="res-trait-gauges">
+          <!-- JavaScript로 5개 지표 바 동적 렌더링 -->
+        </div>
+      </div>
+
+      <!-- 상세 성격 설명 -->
+      <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200/80 shadow-sm">
+        <h3 class="text-lg font-bold text-slate-900 mb-3 flex items-center gap-2">
+          <span>📖</span>
+          <span>성격 심층 분석</span>
+        </h3>
+        <p id="res-description" class="text-sm sm:text-base text-slate-600 leading-relaxed">
+          <!-- 상세 설명 -->
+        </p>
+      </div>
+
+      <!-- 강점 & 약점 (2열 그리드) -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <!-- 강점 -->
+        <div class="bg-white rounded-3xl p-6 border border-emerald-100 shadow-sm">
+          <h4 class="font-bold text-sm text-emerald-800 uppercase tracking-wider mb-4 flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+            <span>핵심 강점 (Strengths)</span>
+          </h4>
+          <ul id="res-strengths" class="space-y-2.5">
+            <!-- JS 렌더링 -->
+          </ul>
+        </div>
+
+        <!-- 약점 -->
+        <div class="bg-white rounded-3xl p-6 border border-purple-100 shadow-sm">
+          <h4 class="font-bold text-sm text-purple-800 uppercase tracking-wider mb-4 flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-purple-500"></span>
+            <span>주의할 점 (Weaknesses)</span>
+          </h4>
+          <ul id="res-weaknesses" class="space-y-2.5">
+            <!-- JS 렌더링 -->
+          </ul>
+        </div>
+      </div>
+
+      <!-- 추천 직무/분야 -->
+      <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200/80 shadow-sm">
+        <h3 class="text-lg font-bold text-slate-900 mb-2 flex items-center gap-2">
+          <span>💼</span>
+          <span>추천 커리어 및 어울리는 분야</span>
+        </h3>
+        <p class="text-xs text-slate-400 mb-4">본인의 성향과 가치관을 극대화할 수 있는 대표 직무군입니다.</p>
+        <div id="res-careers" class="flex flex-wrap gap-2">
+          <!-- JS 렌더링 -->
+        </div>
+      </div>
+
+      <!-- 궁합 매칭 -->
+      <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200/80 shadow-sm">
+        <h3 class="text-lg font-bold text-slate-900 mb-4 flex items-center gap-2">
+          <span>💞</span>
+          <span>성격 유형 케미 & 궁합</span>
+        </h3>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div class="bg-emerald-50/50 p-4 rounded-2xl border border-emerald-100">
+            <div class="flex items-center justify-between mb-1">
+              <span class="text-xs font-bold text-emerald-800 uppercase">환상의 짝꿍</span>
+              <span id="res-match-best-type" class="px-2.5 py-0.5 rounded-md bg-emerald-600 text-white font-black text-xs">ENFP</span>
+            </div>
+            <p id="res-match-best-reason" class="text-xs text-slate-600 leading-relaxed">
+              <!-- 이유 -->
+            </p>
+          </div>
+          <div class="bg-purple-50/50 p-4 rounded-2xl border border-purple-100">
+            <div class="flex items-center justify-between mb-1">
+              <span class="text-xs font-bold text-purple-800 uppercase">주의할 관계</span>
+              <span id="res-match-worst-type" class="px-2.5 py-0.5 rounded-md bg-purple-600 text-white font-black text-xs">ESFJ</span>
+            </div>
+            <p id="res-match-worst-reason" class="text-xs text-slate-600 leading-relaxed">
+              <!-- 이유 -->
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Identity 지표 상세 카드 (-A vs -T) -->
+      <div class="bg-gradient-to-br from-slate-900 to-slate-800 text-white rounded-3xl p-6 sm:p-8 shadow-lg">
+        <div class="flex items-center gap-2 text-xs font-bold text-emerald-400 uppercase tracking-wider mb-2">
+          <span>Identity 지표 심층 해설</span>
+        </div>
+        <h3 id="res-identity-title" class="text-xl font-bold mb-2">자기주장형 (Assertive)</h3>
+        <p id="res-identity-summary" class="text-sm text-slate-300 font-medium mb-3">자신감이 넘치며 여유롭고 스트레스에 쉽게 흔들리지 않는 평정심</p>
+        <p id="res-identity-desc" class="text-xs sm:text-sm text-slate-400 leading-relaxed">
+          <!-- 상세 설명 -->
+        </p>
+      </div>
+
+      <!-- 액션 버튼 영역 -->
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-3 pt-4">
+        <button id="btn-copy-link" type="button" class="w-full sm:w-auto px-6 py-3.5 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm shadow-md transition-all flex items-center justify-center gap-2">
+          <span>🔗</span>
+          <span>결과 링크 복사하기</span>
+        </button>
+        <button id="btn-restart" type="button" class="w-full sm:w-auto px-6 py-3.5 rounded-2xl bg-white hover:bg-slate-100 text-slate-700 font-bold text-sm border border-slate-300 shadow-sm transition-all flex items-center justify-center gap-2">
+          <span>🔄</span>
+          <span>테스트 다시 하기</span>
+        </button>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- 토스트 알림 컴포넌트 -->
+  <div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 bg-slate-900 text-white px-5 py-3 rounded-full text-xs sm:text-sm font-semibold shadow-2xl transition-all duration-300 opacity-0 translate-y-4 pointer-events-none">
+    알림 메시지
+  </div>
+
+  <!-- 푸터 -->
+  <footer class="border-t border-slate-200 bg-white py-8 mt-16 text-center text-xs text-slate-400">
+    <div class="max-w-4xl mx-auto px-4">
+      <p class="font-medium text-slate-500 mb-1">16 Personalities 정밀 성격 유형 검사 서비스</p>
+      <p>본 테스트는 16Personalities의 공개 프레임워크를 벤치마킹하여 자체 제작된 오픈소스 성향 분석 도구입니다.</p>
+    </div>
+  </footer>
+
+  <!-- 스크립트 로드 -->
+  <script src="data/questions.js"></script>
+  <script src="data/results.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
